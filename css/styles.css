@@ -157,7 +157,7 @@
     position:absolute;
     left:var(--slot-x);
     top:var(--slot-y);
-    width:15.5%;
+    width:17.825%;
     height:auto;
     transform:translate(-50%, -50%) rotate(var(--gem-rotation)) scale(var(--gem-scale));
     transform-origin:50% 60%;
