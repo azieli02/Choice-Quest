@@ -246,11 +246,11 @@
 
   body.dakboard {
     background:
-  linear-gradient(rgba(255,255,255,.10), rgba(255,255,255,.10)),
-  url("https://raw.githubusercontent.com/azieli02/Behavior-Tracker/main/Pirate%20Image%20Sample.PNG")
-  center center / cover no-repeat fixed;
-    overflow:hidden;
-  }
+      linear-gradient(rgba(255,255,255,.10), rgba(255,255,255,.10)),
+      url("assets/backgrounds/pirate-background.png")
+      center center / cover no-repeat fixed;
+    overflow: hidden;
+}
   body.dakboard .app { max-width:1500px; padding:34px; }
   body.dakboard header { justify-content:center; text-align:center; margin-bottom:20px; }
   body.dakboard h1 { font-size:clamp(54px, 5.6vw, 96px); }
