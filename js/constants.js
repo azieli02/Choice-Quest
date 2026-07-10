@@ -1,7 +1,7 @@
 const CONSTANTS = Object.freeze({
   TREASURE: Object.freeze({
     maxVisibleGems: 10,
-    chestAsset: 'assets/treasure/chest.png',
+    chestAsset: 'assets/treasure/Choice-Quest-Treasure-Chest.PNG',
     gemAssets: Object.freeze([
       'assets/gems/Choice-Quest-Gem-Blue.PNG',
       'assets/gems/Choice-Quest-Gem-Yellow.PNG',
