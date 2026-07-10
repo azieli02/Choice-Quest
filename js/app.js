@@ -621,7 +621,11 @@ function escapeAttr(value) {
    GLOBALS USED BY INLINE HTML HANDLERS
    ========================================================= */
 
-window.refresh = refresh;
+function hardRefresh() {
+  window.location.reload();
+}
+
+window.refresh = hardRefresh;
 window.act = act;
 
 init();
