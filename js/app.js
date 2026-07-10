@@ -626,6 +626,7 @@ function hardRefresh() {
 }
 
 window.refresh = refresh;
+window.hardRefresh = hardRefresh;
 window.act = act;
 
 init();
