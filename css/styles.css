@@ -150,7 +150,7 @@
   }
   .treasure-chest-foreground {
     z-index:3;
-    background:url('../assets/treasure/chest.png') center / contain no-repeat;
+    background:url('../assets/treasure/Choice-Quest-Treasure-Chest.PNG') center / contain no-repeat;
     clip-path:inset(48.2% 0 0 0);
   }
   .treasure-gem {
