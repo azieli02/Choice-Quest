@@ -3,6 +3,7 @@
    * Version: 2.0
    * File: Styles.html
    */
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
   :root {
     --parchment:#f5e7c7;
@@ -62,14 +63,20 @@
 
   h1 {
     margin:0;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "MedievalSharp", cursive;
     font-size:clamp(38px, 5vw, 68px);
     letter-spacing:-.045em;
     line-height:.92;
     color:#ffe9a6;
     text-shadow:0 4px 0 rgba(37,26,14,.34), 0 9px 25px rgba(0,0,0,.22);
   }
-  h2 { margin:0; font-size:clamp(30px, 4vw, 46px); letter-spacing:-.03em; color:#24160d; font-family:Georgia, "Times New Roman", serif; font-weight:950; }
+  h2 { margin:0; 
+      font-family: "MedievalSharp", cursive; 
+      font-size:clamp(30px, 4vw, 46px);
+      letter-spacing:-.03em; 
+      color:#24160d;
+      font-weight:950; }
+
   h3 { margin:10px 0 4px; font-size:20px; }
 
   .subtitle { margin-top:8px; color:#fff1bf; font-size:15px; font-weight:700; text-shadow:0 2px 10px rgba(0,0,0,.22); }
