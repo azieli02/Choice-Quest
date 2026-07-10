@@ -1,5 +1,10 @@
-# Choice Quest v2.0
+## v2.0.1
+- Added config.js
+- Added constants.js
+- Version bump
 
+
+# Choice Quest v2.0
 - Moved the kid-facing frontend to a GitHub Pages-compatible static site.
 - Preserved the existing UI, buttons, saving behavior, and animations.
 - Added an Apps Script JSONP API for cross-origin communication.
