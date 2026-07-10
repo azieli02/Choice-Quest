@@ -1,6 +1,6 @@
 /**
  * Choice Quest
- * Version: 2.0.2
+ * Version: 2.1.0
  * File: JavaScript.html
  * Purpose: Clean front-end state, rendering, optimistic updates, celebrations, and Google Sheets sync.
  */
@@ -30,11 +30,7 @@ const APP_CONFIG = {
     confettiMaxRotationDegrees: 180
   },
   gems: {
-    colors: ['#2563eb', '#22c55e', '#ef4444', '#f59e0b', '#8b5cf6', '#06b6d4'],
-    positions: [
-      [86, 92, -9], [48, 92, 8], [123, 91, 12], [66, 66, -14], [105, 65, 7],
-      [28, 46, -6], [84, 42, 15], [140, 47, -12], [54, 18, 10], [114, 17, -8]
-    ]
+    colors: ['#2563eb', '#84cc16', '#22c55e', '#d946ef', '#ef4444', '#8b5cf6']
   },
   actions: {
     addGood: { label: 'Good', delta: 1 },
@@ -281,7 +277,7 @@ function buildLoadingCardHtml(name) {
         </div>
         <div class="ticket-pill">🎟️ -- Tickets</div>
       </div>
-      <div class="treasure-stage">${buildTreasureHtml(0, APP_CONFIG.defaults.gemsPerTicket, false, true)}</div>
+      <div class="treasure-stage">${buildTreasureHtml(name, 0, false, true)}</div>
       <div class="meter">
         <div class="big-progress">Loading...</div>
         <div class="hint">Preparing today’s quest</div>
@@ -335,7 +331,7 @@ function buildKidCardInnerHtml(kid, animateNewGem) {
       <div class="ticket-pill"><span>🎟️</span> ${kid.tickets} Tickets</div>
     </div>
 
-    <div class="treasure-stage">${buildTreasureHtml(gemCount, perTicket, animateNewGem && !isCelebrating)}</div>
+    <div class="treasure-stage">${buildTreasureHtml(kid.name, gemCount, animateNewGem && !isCelebrating)}</div>
 
     <div class="meter">
       <div class="big-progress">${gemCount} / ${perTicket}</div>
@@ -375,33 +371,11 @@ function getProgressMessage(count, perTicket) {
    TREASURE CHEST
    ========================================================= */
 
-function buildTreasureHtml(count, perTicket, animateNewGem, loading = false) {
-  const gemCount = Math.min(count, perTicket, APP_CONFIG.gems.positions.length);
-  const gems = Array.from({ length: gemCount }, (_, index) => (
-    buildGemHtml(index, gemCount, animateNewGem)
-  )).join('');
-
-  return `
-    <div class="chest-area${loading ? ' loading-treasure' : ''}">
-            <div class="chest-lid" aria-hidden="true"><span class="chest-band"></span></div>
-      <div class="chest">
-        <div class="chest-fill-line"></div>
-        <div class="chest-shine"></div>
-        <div class="chest-lock"></div>
-        ${gems}
-      </div>
-      <div class="shelf"></div>
-    </div>
-  `;
+function buildTreasureHtml(childName, count, animateNewGem, loading = false) {
+  const dateKey = state.data && state.data.today ? state.data.today : new Date().toISOString().slice(0, 10);
+  return buildTreasureArtworkHtml(childName, dateKey, count, animateNewGem, loading);
 }
 
-function buildGemHtml(index, gemCount, animateNewGem) {
-  const [left, top, rotation = 0] = APP_CONFIG.gems.positions[index];
-  const color = APP_CONFIG.gems.colors[index % APP_CONFIG.gems.colors.length];
-  const animationClass = animateNewGem && index === gemCount - 1 ? ' drop' : '';
-
-  return `<span class="gem${animationClass}" style="left:${left}px;top:${top}px;--gem-color:${color};--gem-rotate:${rotation}deg"><span class="gem-facet gem-facet-a"></span><span class="gem-facet gem-facet-b"></span><span class="gem-facet gem-facet-c"></span></span>`;
-}
 
 /* =========================================================
    ACTIONS
