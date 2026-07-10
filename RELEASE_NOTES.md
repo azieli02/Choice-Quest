@@ -1,3 +1,14 @@
+# Choice Quest v2.1.0
+- Replaced the generated chest with the finished treasure-chest artwork.
+- Added all six finished gem images.
+- Added a dedicated `js/treasure.js` module.
+- Added ten predefined gem slots, each with its own final position, drop point, rotation, and scale.
+- Gem colors and available slots are selected deterministically from the child name and date, so the pile stays stable after refreshes but changes each day.
+- New gems fall directly into their assigned slot without bouncing.
+- Gems remain visible for the current day and clear when the spreadsheet resets the daily gem count.
+- No Apps Script/backend changes.
+
+
 # Choice Quest v2.0.2
 - Standardized frontend configuration on one global object: `window.CHOICE_QUEST_CONFIG`.
 - Fixed the configuration naming collision that stopped the app from loading.
