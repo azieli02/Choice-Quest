@@ -9,7 +9,7 @@
    CONFIGURATION
    ========================================================= */
 
-const CONFIG = {
+const APP_CONFIG = {
   view: 'github',
   defaults: {
     gemsPerTicket: 10,
@@ -62,7 +62,7 @@ function init() {
   cacheCoreDom();
   renderLoadingShell();
   refresh({ full: true });
-  window.setInterval(refresh, Number(window.CHOICE_QUEST_CONFIG.refreshMs || CONFIG.timing.dakboardRefreshMs));
+  window.setInterval(refresh, Number(window.CHOICE_QUEST_CONFIG.refreshMs || APP_CONFIG.timing.dakboardRefreshMs));
 }
 
 function refresh(options = {}) {
@@ -190,11 +190,11 @@ function getSettings() {
 }
 
 function getGemsPerTicket() {
-  return Number(getSettings().gemsPerTicket || getSettings().marblesPerTicket || CONFIG.defaults.gemsPerTicket);
+  return Number(getSettings().gemsPerTicket || getSettings().marblesPerTicket || APP_CONFIG.defaults.gemsPerTicket);
 }
 
 function getBonusValue() {
-  return Number(getSettings().bonusValue || CONFIG.defaults.bonusValue);
+  return Number(getSettings().bonusValue || APP_CONFIG.defaults.bonusValue);
 }
 
 function getNoCarryover() {
@@ -265,7 +265,7 @@ function renderLoadingShell() {
   root.className = 'content loading-content';
   root.innerHTML = `
     <section class="grid" id="kidGrid">
-      ${CONFIG.defaults.loadingKids.map(buildLoadingCardHtml).join('')}
+      ${APP_CONFIG.defaults.loadingKids.map(buildLoadingCardHtml).join('')}
     </section>
   `;
 }
@@ -280,7 +280,7 @@ function buildLoadingCardHtml(name) {
         </div>
         <div class="ticket-pill">🎟️ -- Tickets</div>
       </div>
-      <div class="treasure-stage">${buildTreasureHtml(0, CONFIG.defaults.gemsPerTicket, false, true)}</div>
+      <div class="treasure-stage">${buildTreasureHtml(0, APP_CONFIG.defaults.gemsPerTicket, false, true)}</div>
       <div class="meter">
         <div class="big-progress">Loading...</div>
         <div class="hint">Preparing today’s quest</div>
@@ -375,7 +375,7 @@ function getProgressMessage(count, perTicket) {
    ========================================================= */
 
 function buildTreasureHtml(count, perTicket, animateNewGem, loading = false) {
-  const gemCount = Math.min(count, perTicket, CONFIG.gems.positions.length);
+  const gemCount = Math.min(count, perTicket, APP_CONFIG.gems.positions.length);
   const gems = Array.from({ length: gemCount }, (_, index) => (
     buildGemHtml(index, gemCount, animateNewGem)
   )).join('');
@@ -395,8 +395,8 @@ function buildTreasureHtml(count, perTicket, animateNewGem, loading = false) {
 }
 
 function buildGemHtml(index, gemCount, animateNewGem) {
-  const [left, top, rotation = 0] = CONFIG.gems.positions[index];
-  const color = CONFIG.gems.colors[index % CONFIG.gems.colors.length];
+  const [left, top, rotation = 0] = APP_CONFIG.gems.positions[index];
+  const color = APP_CONFIG.gems.colors[index % APP_CONFIG.gems.colors.length];
   const animationClass = animateNewGem && index === gemCount - 1 ? ' drop' : '';
 
   return `<span class="gem${animationClass}" style="left:${left}px;top:${top}px;--gem-color:${color};--gem-rotate:${rotation}deg"><span class="gem-facet gem-facet-a"></span><span class="gem-facet gem-facet-b"></span><span class="gem-facet gem-facet-c"></span></span>`;
@@ -520,7 +520,7 @@ function addLocalHistory({ child, action, gemDelta, ticketDelta, note }) {
     undone: ''
   });
 
-  state.data.history = state.data.history.slice(0, CONFIG.defaults.historyLimit);
+  state.data.history = state.data.history.slice(0, APP_CONFIG.defaults.historyLimit);
 }
 
 function noLocalChange() {
@@ -543,12 +543,12 @@ function startTicketCelebration(childName) {
     if (!state.celebrations[childId]) return;
     state.celebrations[childId].phase = 'emptying';
     renderChild(childName);
-  }, CONFIG.timing.celebrationEmptyMs);
+  }, APP_CONFIG.timing.celebrationEmptyMs);
 
   state.timers[`${childId}-end`] = window.setTimeout(() => {
     delete state.celebrations[childId];
     renderChild(childName);
-  }, CONFIG.timing.celebrationEndMs);
+  }, APP_CONFIG.timing.celebrationEndMs);
 }
 
 function clearCelebrationTimers(childId) {
@@ -571,19 +571,19 @@ function showCelebration(text) {
   celebrate.classList.add('show');
 
   makeConfetti();
-  window.setTimeout(() => celebrate.classList.remove('show'), CONFIG.timing.celebrationEndMs);
+  window.setTimeout(() => celebrate.classList.remove('show'), APP_CONFIG.timing.celebrationEndMs);
 }
 
 function makeConfetti() {
-  for (let i = 0; i < CONFIG.animation.confettiCount; i++) {
+  for (let i = 0; i < APP_CONFIG.animation.confettiCount; i++) {
     const piece = document.createElement('span');
     piece.className = 'confetti';
     piece.style.left = `${Math.random() * 100}vw`;
-    piece.style.background = CONFIG.gems.colors[i % CONFIG.gems.colors.length];
-    piece.style.animationDelay = `${Math.random() * CONFIG.animation.confettiMaxDelaySeconds}s`;
-    piece.style.transform = `rotate(${Math.random() * CONFIG.animation.confettiMaxRotationDegrees}deg)`;
+    piece.style.background = APP_CONFIG.gems.colors[i % APP_CONFIG.gems.colors.length];
+    piece.style.animationDelay = `${Math.random() * APP_CONFIG.animation.confettiMaxDelaySeconds}s`;
+    piece.style.transform = `rotate(${Math.random() * APP_CONFIG.animation.confettiMaxRotationDegrees}deg)`;
     document.body.appendChild(piece);
-    window.setTimeout(() => piece.remove(), CONFIG.timing.confettiRemoveMs);
+    window.setTimeout(() => piece.remove(), APP_CONFIG.timing.confettiRemoveMs);
   }
 }
 
@@ -599,7 +599,7 @@ function toast(message) {
   window.clearTimeout(el._timer);
   el._timer = window.setTimeout(() => {
     el.style.display = 'none';
-  }, CONFIG.timing.toastMs);
+  }, APP_CONFIG.timing.toastMs);
 }
 
 function getOrCreateToast() {
