@@ -1,3 +1,14 @@
+# Choice Quest v2.1.2
+- Increased displayed gem size by 15%.
+- Lowered the treasure slots so gems sit deeper inside the chest.
+- Rebuilt the treasure pile as twelve slightly irregular slots arranged in three rows: 3 back, 4 middle, and 5 front.
+- Adjusted horizontal and vertical spacing so rows overlap intentionally without hiding most of neighboring gems.
+- Preserved random available-slot selection and random gem colors; the daily pile remains stable after refreshes.
+- Renamed the chest asset to `assets/treasure/Choice-Quest-Treasure-Chest.PNG` and kept all references consistent.
+- Updated project version references to 2.1.2.
+- No Apps Script/backend changes.
+
+
 # Choice Quest v2.1.0
 - Replaced the generated chest with the finished treasure-chest artwork.
 - Added all six finished gem images.
