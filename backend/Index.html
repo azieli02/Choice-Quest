@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <?!= HtmlService.createHtmlOutputFromFile('Styles').getContent(); ?>
+</head>
+<body class="<?= view === 'dakboard' ? 'dakboard' : '' ?>">
+
+  <div class="background">
+    <img src="https://raw.githubusercontent.com/azieli02/Behavior-Tracker/main/Pirate%20Image%20Sample.PNG" alt="">
+  </div>
+
+  <div class="app">
+    <header>
+      <div>
+        <h1>Choice Quest</h1>
+        <div class="subtitle" id="subtitle">Collect gems. Complete today’s quest. Earn a golden ticket.</div>
+        <div class="links parent-only" id="links"></div>
+      </div>
+      <div class="header-actions parent-only">
+        <button class="ghost" onclick="refresh()">Refresh</button>
+      </div>
+    </header>
+    <main id="root" class="loading">Loading quests...</main>
+  </div>
+
+  <div id="celebrate" class="celebrate"></div>
+  <?!= HtmlService.createHtmlOutputFromFile('JavaScript').getContent(); ?>
+</body>
+</html>
