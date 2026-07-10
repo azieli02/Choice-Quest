@@ -1,6 +1,6 @@
 /**
  * Choice Quest
- * Version: 2.1.0
+ * Version: 2.1.2
  * File: JavaScript.html
  * Purpose: Clean front-end state, rendering, optimistic updates, celebrations, and Google Sheets sync.
  */
