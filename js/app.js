@@ -1,6 +1,6 @@
 /**
  * Choice Quest
- * Version: 2.0
+ * Version: 2.0.2
  * File: JavaScript.html
  * Purpose: Clean front-end state, rendering, optimistic updates, celebrations, and Google Sheets sync.
  */
@@ -62,7 +62,8 @@ function init() {
   cacheCoreDom();
   renderLoadingShell();
   refresh({ full: true });
-  window.setInterval(refresh, Number(window.CHOICE_QUEST_CONFIG.refreshMs || APP_CONFIG.timing.dakboardRefreshMs));
+  const refreshMs = Number((window.CHOICE_QUEST_CONFIG && window.CHOICE_QUEST_CONFIG.refreshMs) || APP_CONFIG.timing.dakboardRefreshMs);
+  window.setInterval(() => refresh(), refreshMs);
 }
 
 function refresh(options = {}) {
@@ -101,7 +102,7 @@ function callServer(functionName, ...args) {
     if (args[1] !== undefined) params.set('prize', String(args[1]));
 
     const script = document.createElement('script');
-    const timeoutMs = Number(window.CHOICE_QUEST_CONFIG.requestTimeoutMs || 15000);
+    const timeoutMs = Number((window.CHOICE_QUEST_CONFIG && window.CHOICE_QUEST_CONFIG.requestTimeoutMs) || 15000);
     let timer;
 
     const cleanup = () => {
@@ -202,7 +203,7 @@ function getNoCarryover() {
 }
 
 function getActionConfig(functionName) {
-  const action = CONFIG.actions[functionName] || { label: '', delta: 0 };
+  const action = APP_CONFIG.actions[functionName] || { label: '', delta: 0 };
   return {
     label: action.label,
     delta: action.getDelta ? action.getDelta() : action.delta
