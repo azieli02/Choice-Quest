@@ -60,7 +60,7 @@ Then replace the Apps Script URL in the DakBoard widget with the GitHub Pages ad
 ## Artwork status
 
 - Current pirate background is included locally.
-- The completed chest is staged at `assets/treasure/chest.png` but is not wired into the UI yet, so v2.0 preserves the current working CSS chest.
+- The completed chest is staged at `assets/treasure/Choice-Quest-Treasure-Chest.PNG` and is used by the live treasure display.
 - Add the six final gems to `assets/gems/`; they can be integrated with the chest in the next visual release.
 
 ## Important implementation note
