@@ -1,3 +1,7 @@
+/* =========================================================
+   DESIGN TOKENS
+   ========================================================= */
+
 :root {
   --forest: #173d2c;
   --forest2: #245b42;
@@ -10,6 +14,10 @@
   --red: #a43b3b;
   --shadow: 0 10px 28px rgba(43, 29, 14, 0.14);
 }
+/* =========================================================
+   BASE STYLES
+   ========================================================= */
+
 * {
   box-sizing: border-box;
 }
@@ -29,6 +37,10 @@ input,
 textarea {
   font: inherit;
 }
+/* =========================================================
+   APP HEADER
+   ========================================================= */
+
 .topbar {
   position: sticky;
   top: 0;
@@ -68,6 +80,10 @@ h1 {
   height: 42px;
   font-size: 24px;
 }
+/* =========================================================
+   SHARED LAYOUT AND COMPONENTS
+   ========================================================= */
+
 .app {
   max-width: 620px;
   margin: auto;
@@ -193,6 +209,10 @@ h1 {
 .preview-item small {
   color: var(--muted);
 }
+/* =========================================================
+   BOTTOM NAVIGATION
+   ========================================================= */
+
 .bottom-nav {
   position: fixed;
   z-index: 20;
@@ -222,6 +242,10 @@ h1 {
 .bottom-nav .active {
   color: var(--forest);
 }
+/* =========================================================
+   STORE SCREEN
+   ========================================================= */
+
 .store-grid {
   display: grid;
   gap: 7px;
@@ -320,6 +344,10 @@ h1 {
   width: 100%;
   padding: 15px;
 }
+/* =========================================================
+   REWARD EDITOR
+   ========================================================= */
+
 dialog {
   border: 0;
   border-radius: 24px;
@@ -407,6 +435,10 @@ textarea:focus {
   pointer-events: none;
   opacity: 0.62;
 }
+/* =========================================================
+   LARGER SCREENS
+   ========================================================= */
+
 @media (min-width: 700px) {
   .bottom-nav {
     left: 50%;
@@ -418,7 +450,9 @@ textarea:focus {
   }
 }
 
-/* v1.2 Home and Kid View */
+/* =========================================================
+   HOME SCREEN
+   ========================================================= */
 .home-title {
   margin-bottom: 4px;
 }
@@ -465,6 +499,10 @@ textarea:focus {
   height: auto;
   aspect-ratio: 1 / 0.82;
 }
+
+/* =========================================================
+   KID VIEW SCREEN
+   ========================================================= */
 
 .kid-view-title {
   margin-bottom: 6px;
@@ -556,6 +594,30 @@ textarea:focus {
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
 }
 
+.treasure-gem-drop {
+  animation: treasureGemDrop 0.46s cubic-bezier(0.42, 0, 0.72, 1) both;
+}
+
+@keyframes treasureGemDrop {
+  0% {
+    left: var(--drop-x);
+    top: var(--drop-y);
+    opacity: 0.15;
+    transform: translate(-50%, -50%) rotate(var(--gem-rotation))
+      scale(calc(var(--gem-scale) * 0.82));
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    left: var(--slot-x);
+    top: var(--slot-y);
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--gem-rotation))
+      scale(var(--gem-scale));
+  }
+}
+
 .ticket-pill {
   display: inline-block;
   margin-top: -8px;
@@ -587,6 +649,10 @@ textarea:focus {
   font-size: 20px;
   font-weight: 900;
 }
+
+/* =========================================================
+   QUEST-COMPLETE CELEBRATION
+   ========================================================= */
 
 .mobile-celebrate {
   position: fixed;
