@@ -97,7 +97,7 @@ function preview(p) {
 
 function store() {
   const ps = model.data.prizes || [];
-  return `<div class="section-head"><h2>Reward Store</h2></div><div class="store-grid">${ps.length ? ps.map((p) => `<article class="prize-card" data-edit="${attr(p.name)}">${photo(p)}<div class="prize-details"><h3>${esc(p.name)}${p.available ? "" : " · Hidden"}</h3><p>${esc(p.description || "")}</p><div class="prize-actions"><span class="price">🎟️ ${p.cost} tickets</span>${p.available ? `<button class="purchase-btn" data-purchase="${attr(p.name)}">Purchase</button>` : ""}</div></div></article>`).join("") : '<div class="empty">No rewards yet. Tap Add reward to begin.</div>'}</div><button class="fab" id="addPrize">＋ Add reward</button>`;
+  return `<div class="section-head"><h2>Reward Store</h2></div><div class="store-grid">${ps.length ? ps.map((p) => `<article class="prize-card" data-edit="${attr(p.name)}">${photo(p)}<div class="prize-details"><h3>${esc(p.name)}${p.available ? "" : " · Hidden"}</h3><p>${esc(p.description || "")}</p><div class="prize-actions"><span class="price">🎟️ ${p.cost}</span>${p.available ? `<button class="purchase-btn" data-purchase="${attr(p.name)}">Purchase</button>` : `<span class="unavailable-pill">Unavailable</span>`}</div></div></article>`).join("") : '<div class="empty">No rewards yet. Tap Add reward to begin.</div>'}</div><button class="fab" id="addPrize">＋ Add reward</button>`;
 }
 /* =========================================================
    KID VIEW SCREEN
