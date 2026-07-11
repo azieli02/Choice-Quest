@@ -149,25 +149,38 @@ function bind() {
 async function act(b) {
   const childName = b.dataset.kid;
   const actionName = b.dataset.act;
+  const previousData = JSON.stringify(model.data);
   const before = (model.data.kids || []).find((k) => k.name === childName);
   const oldGems = Number(before?.gems || 0);
   const oldTickets = Number(before?.tickets || 0);
-  b.closest(".summary-card").classList.add("saving");
+  const max = Number(model.data.settings?.gemsPerTicket || 10);
+  const positiveDelta =
+    actionName === "addGood"
+      ? 1
+      : actionName === "addBonus"
+        ? Number(model.data.settings?.bonusValue || 2)
+        : 0;
+  const canAnimateImmediately =
+    positiveDelta > 0 && oldGems + positiveDelta < max;
+
+  if (canAnimateImmediately) {
+    before.gems = oldGems + positiveDelta;
+    model.animateKid = childName;
+    render();
+    model.animateKid = null;
+  } else {
+    b.closest(".summary-card").classList.add("saving");
+  }
+
   try {
     model.data = await api(actionName, { child: childName });
     const after = (model.data.kids || []).find((k) => k.name === childName);
     const earnedTicket = Number(after?.tickets || 0) > oldTickets;
-    const addedGem =
-      (actionName === "addGood" || actionName === "addBonus") &&
-      Number(after?.gems || 0) > oldGems &&
-      !earnedTicket;
-    model.animateKid = addedGem ? childName : null;
     render();
-    model.animateKid = null;
-    if (earnedTicket)
-      showMobileCelebration(childName);
+    if (earnedTicket) showMobileCelebration(childName);
     else toast("Saved");
   } catch (e) {
+    model.data = JSON.parse(previousData);
     toast(e.message);
     render();
   }
