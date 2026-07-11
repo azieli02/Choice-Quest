@@ -1,0 +1,9 @@
+.store-grid {
+  gap: 7px;
+  padding-bottom: 72px;
+}
+
+.fab {
+  z-index: 30;
+  bottom: calc(118px + env(safe-area-inset-bottom));
+}
