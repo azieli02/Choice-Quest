@@ -97,7 +97,7 @@ function preview(p) {
 
 function store() {
   const ps = model.data.prizes || [];
-  return `<div class="section-head"><h2>Reward Store</h2></div><div class="store-grid">${ps.length ? ps.map((p) => `<button class="prize-card" data-edit="${attr(p.name)}">${photo(p)}<div><h3>${esc(p.name)}${p.available ? "" : " · Hidden"}</h3><p>${esc(p.description || "")}</p><span class="price">🎟️ ${p.cost} tickets</span></div></button>`).join("") : '<div class="empty">No rewards yet. Tap Add reward to begin.</div>'}</div><button class="fab" id="addPrize">＋ Add reward</button>`;
+  return `<div class="section-head"><h2>Reward Store</h2></div><div class="store-grid">${ps.length ? ps.map((p) => `<article class="prize-card" data-edit="${attr(p.name)}">${photo(p)}<div class="prize-details"><h3>${esc(p.name)}${p.available ? "" : " · Hidden"}</h3><p>${esc(p.description || "")}</p><div class="prize-actions"><span class="price">🎟️ ${p.cost} tickets</span>${p.available ? `<button class="purchase-btn" data-purchase="${attr(p.name)}">Purchase</button>` : ""}</div></div></article>`).join("") : '<div class="empty">No rewards yet. Tap Add reward to begin.</div>'}</div><button class="fab" id="addPrize">＋ Add reward</button>`;
 }
 /* =========================================================
    KID VIEW SCREEN
@@ -129,11 +129,21 @@ function bind() {
   document
     .querySelectorAll("[data-edit]")
     .forEach(
-      (b) =>
-        (b.onclick = () =>
+      (card) =>
+        (card.onclick = (event) => {
+          if (event.target.closest("[data-purchase]")) return;
           openPrize(
-            (model.data.prizes || []).find((p) => p.name === b.dataset.edit),
-          )),
+            (model.data.prizes || []).find(
+              (p) => p.name === card.dataset.edit,
+            ),
+          );
+        }),
+    );
+  document
+    .querySelectorAll("[data-purchase]")
+    .forEach(
+      (button) =>
+        (button.onclick = () => openPurchase(button.dataset.purchase)),
     );
   document.querySelectorAll("[data-select-kid]").forEach(
     (b) =>
@@ -211,6 +221,47 @@ document.getElementById("refreshBtn").onclick = load;
 const dlg = document.getElementById("prizeDialog"),
   form = document.getElementById("prizeForm"),
   previewImg = document.getElementById("photoPreview");
+
+const purchaseDialog = document.getElementById("purchaseDialog");
+
+function openPurchase(prizeName) {
+  const prize = (model.data.prizes || []).find((p) => p.name === prizeName);
+  if (!prize) return;
+
+  document.getElementById("purchaseReward").textContent =
+    `${prize.name} · ${prize.cost} tickets`;
+  document.getElementById("purchaseKids").innerHTML = (model.data.kids || [])
+    .map(
+      (kid) =>
+        `<button class="purchase-kid" data-redeem-kid="${attr(kid.name)}" data-redeem-prize="${attr(prize.name)}"><span>${esc(kid.name)}</span><small>${kid.tickets} tickets available</small></button>`,
+    )
+    .join("");
+
+  document.querySelectorAll("[data-redeem-kid]").forEach((button) => {
+    button.onclick = () => redeemPurchase(button);
+  });
+  purchaseDialog.showModal();
+}
+
+async function redeemPurchase(button) {
+  const child = button.dataset.redeemKid;
+  const prize = button.dataset.redeemPrize;
+  button.disabled = true;
+  button.textContent = "Purchasing…";
+
+  try {
+    model.data = await api("redeemPrize", { child, prize });
+    purchaseDialog.close();
+    render();
+    toast(`${prize} purchased for ${child}`);
+  } catch (error) {
+    alert(error.message || "Could not complete purchase.");
+    purchaseDialog.close();
+    openPurchase(prize);
+  }
+}
+
+document.getElementById("closePurchase").onclick = () => purchaseDialog.close();
 function openPrize(p) {
   model.editing = p || null;
   form.reset();
