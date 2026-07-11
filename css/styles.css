@@ -289,3 +289,17 @@
 /* GitHub Pages: avoid browser default overflow around the full-screen background. */
 html, body { width:100%; min-height:100%; }
 .background { background:#000; }
+
+/* Shared ticket artwork */
+.ticket-icon {
+  width:1.45em;
+  height:1em;
+  object-fit:contain;
+  vertical-align:-.13em;
+}
+.ticket-icon-large {
+  width:1.7em;
+  height:1.15em;
+  object-fit:contain;
+  vertical-align:middle;
+}
