@@ -30,7 +30,7 @@ body {
   background: linear-gradient(#fffaf0, #f3e4c4);
   font-family: Nunito, system-ui, sans-serif;
   min-height: 100vh;
-  padding-bottom: 92px;
+  padding-bottom: 62px;
 }
 button,
 input,
@@ -221,8 +221,8 @@ h1 {
   right: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 8px max(8px, env(safe-area-inset-right))
-    calc(8px + env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+  padding: 3px max(8px, env(safe-area-inset-right))
+    calc(3px + env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
   background: #fffaf0;
   border-top: 1px solid var(--line);
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
@@ -233,14 +233,22 @@ h1 {
   color: #81735e;
   font-size: 12px;
   font-weight: 900;
-  padding: 4px;
+  padding: 1px 4px;
 }
 .bottom-nav span {
   display: block;
-  font-size: 23px;
+  font-size: 19px;
 }
 .bottom-nav .active {
   color: var(--forest);
+}
+
+.nav-chest {
+  display: block;
+  width: 30px;
+  height: 25px;
+  margin: 0 auto;
+  object-fit: contain;
 }
 /* =========================================================
    STORE SCREEN
@@ -256,6 +264,7 @@ h1 {
   grid-template-columns: 96px 1fr;
   gap: 14px;
   padding: 11px;
+  cursor: pointer;
 }
 .prize-card img,
 .prize-card .photo-placeholder {
@@ -280,11 +289,38 @@ h1 {
   padding: 5px 9px;
   font-weight: 900;
 }
+
+.prize-details {
+  min-width: 0;
+}
+
+.prize-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.prize-actions .price {
+  margin-top: 0;
+  text-align: center;
+}
+
+.purchase-btn {
+  border: 1px solid #d7b85d;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: linear-gradient(#fff1b3, #ecc96a);
+  color: #176bb4;
+  font-size: 13px;
+  font-weight: 900;
+}
 .fab {
   position: fixed;
   z-index: 30;
   right: 18px;
-  bottom: calc(118px + env(safe-area-inset-bottom));
+  bottom: calc(58px + env(safe-area-inset-bottom));
   border: 0;
   border-radius: 999px;
   background: var(--forest);
@@ -417,6 +453,38 @@ textarea:focus {
   background: none;
   color: var(--red);
   font-weight: 900;
+}
+
+.purchase-dialog .purchase-content {
+  padding: 20px;
+}
+
+.purchase-dialog p {
+  margin: 0 0 15px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.purchase-kids {
+  display: grid;
+  gap: 10px;
+}
+
+.purchase-kid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.purchase-kid small {
+  color: var(--muted);
+  font-size: 11px;
 }
 .toast {
   display: none;
