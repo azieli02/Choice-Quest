@@ -191,8 +191,8 @@ h1 {
 .preview-item {
   min-width: 125px;
 }
-.preview-item img,
-.photo-placeholder {
+.preview-item > img,
+.preview-item > .photo-placeholder {
   width: 125px;
   height: 92px;
   border-radius: 14px;
@@ -279,8 +279,8 @@ h1 {
   padding: 11px;
   cursor: pointer;
 }
-.prize-card img,
-.prize-card .photo-placeholder {
+.prize-card > img,
+.prize-card > .photo-placeholder {
   width: 96px;
   height: 96px;
   border-radius: 15px;
@@ -585,8 +585,8 @@ textarea:focus {
   min-width: 0;
 }
 
-.store-preview .preview-item img,
-.store-preview .photo-placeholder {
+.store-preview .preview-item > img,
+.store-preview .preview-item > .photo-placeholder {
   width: 100%;
   height: auto;
   aspect-ratio: 1 / 0.82;
