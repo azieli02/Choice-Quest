@@ -8,15 +8,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/parent.css?v=4">
+  <link rel="stylesheet" href="css/parent.css?v=5">
 </head>
 <body>
   <header class="topbar"><div><p class="eyebrow">Parent controls</p><h1>Choice Quest</h1></div><button class="icon-btn" id="refreshBtn" aria-label="Refresh">↻</button></header>
   <main id="app" class="app"><div class="loading">Loading the quest…</div></main>
   <nav class="bottom-nav" aria-label="Main navigation">
     <button data-screen="home" class="active"><span>⌂</span>Home</button>
-    <button data-screen="store"><span>🎁</span>Store</button>
-    <button data-screen="kid"><span>💎</span>Kid View</button>
+    <button data-screen="store"><span>🎟️</span>Store</button>
+    <button data-screen="kid"><img class="nav-chest" src="assets/treasure/Choice-Quest-Treasure-Chest.PNG" alt="">Kid View</button>
   </nav>
   <dialog id="prizeDialog">
     <form id="prizeForm" method="dialog">
@@ -32,12 +32,19 @@
       <button class="danger-link" id="deletePrize" type="button" hidden>Delete reward</button>
     </form>
   </dialog>
+  <dialog id="purchaseDialog" class="purchase-dialog">
+    <div class="purchase-content">
+      <div class="dialog-head"><h2>Who is purchasing?</h2><button type="button" class="icon-btn" id="closePurchase">×</button></div>
+      <p id="purchaseReward"></p>
+      <div id="purchaseKids" class="purchase-kids"></div>
+    </div>
+  </dialog>
   <iframe name="uploadFrame" id="uploadFrame" hidden></iframe>
   <div id="mobileCelebrate" class="mobile-celebrate" aria-live="assertive"></div>
   <div id="toast" class="toast" role="status"></div>
   <script src="js/config.js"></script>
   <script src="js/constants.js"></script>
   <script src="js/treasure.js"></script>
-  <script src="js/parent.js?v=8"></script>
+  <script src="js/parent.js?v=9"></script>
 </body>
 </html>
