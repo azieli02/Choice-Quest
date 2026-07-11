@@ -368,13 +368,13 @@ function compress(file) {
     r.onload = () => (img.src = r.result);
     r.onerror = reject;
     img.onload = () => {
-      const max = 1200,
+      const max = 900,
         scale = Math.min(1, max / Math.max(img.width, img.height)),
         c = document.createElement("canvas");
       c.width = Math.round(img.width * scale);
       c.height = Math.round(img.height * scale);
       c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-      resolve(c.toDataURL("image/jpeg", 0.78));
+      resolve(c.toDataURL("image/jpeg", 0.7));
     };
     r.readAsDataURL(file);
   });
