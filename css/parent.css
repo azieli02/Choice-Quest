@@ -316,6 +316,11 @@ h1 {
 }
 
 .prize-actions .price {
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
   margin-top: 0;
   text-align: center;
 }
