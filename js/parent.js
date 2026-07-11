@@ -89,7 +89,7 @@ function homeGemStrip(count, max) {
   return `<div class="home-gems">${Array.from({ length: max }, (_, i) => `<img src="${assets[i % assets.length]}" class="${i < count ? "earned" : "future"}" alt="">`).join("")}</div>`;
 }
 function preview(p) {
-  return `<div class="preview-item">${photo(p)}<b>${esc(p.name)}</b><small>🎟️ ${p.cost}</small></div>`;
+  return `<div class="preview-item">${photo(p)}<b>${esc(p.name)}</b><small>${ticketIcon()} ${p.cost}</small></div>`;
 }
 /* =========================================================
    STORE SCREEN
@@ -97,7 +97,7 @@ function preview(p) {
 
 function store() {
   const ps = model.data.prizes || [];
-  return `<div class="section-head"><h2>Reward Store</h2></div><div class="store-grid">${ps.length ? ps.map((p) => `<article class="prize-card" data-edit="${attr(p.name)}">${photo(p)}<div class="prize-details"><h3>${esc(p.name)}${p.available ? "" : " · Hidden"}</h3><p>${esc(p.description || "")}</p><div class="prize-actions"><span class="price">🎟️ ${p.cost}</span>${p.available ? `<button class="purchase-btn" data-purchase="${attr(p.name)}">Purchase</button>` : `<span class="unavailable-pill">Unavailable</span>`}</div></div></article>`).join("") : '<div class="empty">No rewards yet. Tap Add reward to begin.</div>'}</div><button class="fab" id="addPrize">＋ Add reward</button>`;
+  return `<div class="section-head"><h2>Reward Store</h2></div><div class="store-grid">${ps.length ? ps.map((p) => `<article class="prize-card" data-edit="${attr(p.name)}">${photo(p)}<div class="prize-details"><h3>${esc(p.name)}${p.available ? "" : " · Hidden"}</h3><p>${esc(p.description || "")}</p><div class="prize-actions"><span class="price">${ticketIcon()} ${p.cost}</span>${p.available ? `<button class="purchase-btn" data-purchase="${attr(p.name)}">Purchase</button>` : `<span class="unavailable-pill">Unavailable</span>`}</div></div></article>`).join("") : '<div class="empty">No rewards yet. Tap Add reward to begin.</div>'}</div><button class="fab" id="addPrize">＋ Add reward</button>`;
 }
 /* =========================================================
    KID VIEW SCREEN
@@ -108,13 +108,18 @@ function kidView() {
   if (!kids.length) return '<div class="empty">No children found.</div>';
   const max = Number(model.data.settings?.gemsPerTicket || 10);
   const date = model.data.today || new Date().toISOString().slice(0, 10);
-  return `<div class="section-head kid-view-title"><h2>Kid View</h2></div><div class="mobile-kids">${kids.map((k) => `<section class="summary-card mobile-kid" data-child="${attr(k.name)}"><div class="kid-name">${esc(k.name)}</div><div class="kid-content"><div class="kid-treasure">${buildTreasureArtworkHtml(k.name, date, k.gems, model.animateKid === k.name)}<div class="ticket-pill">🎟️ ${k.tickets} Tickets</div></div><div class="kid-controls"><button class="good" data-act="addGood" data-kid="${attr(k.name)}">+ Good Choice</button><button class="bonus" data-act="addBonus" data-kid="${attr(k.name)}">+ Bonus Gem</button><button class="oops" data-act="addOops" data-kid="${attr(k.name)}">− Oops</button><button class="undo" data-act="undoLast" data-kid="${attr(k.name)}">Undo</button><div class="kid-gem-total">${k.gems}/${max} Gems</div></div></div></section>`).join("")}</div>`;
+  return `<div class="section-head kid-view-title"><h2>Kid View</h2></div><div class="mobile-kids">${kids.map((k) => `<section class="summary-card mobile-kid" data-child="${attr(k.name)}"><div class="kid-name">${esc(k.name)}</div><div class="kid-content"><div class="kid-treasure">${buildTreasureArtworkHtml(k.name, date, k.gems, model.animateKid === k.name)}<div class="ticket-pill">${ticketIcon()} ${k.tickets} Tickets</div></div><div class="kid-controls"><button class="good" data-act="addGood" data-kid="${attr(k.name)}">+ Good Choice</button><button class="bonus" data-act="addBonus" data-kid="${attr(k.name)}">+ Bonus Gem</button><button class="oops" data-act="addOops" data-kid="${attr(k.name)}">− Oops</button><button class="undo" data-act="undoLast" data-kid="${attr(k.name)}">Undo</button><div class="kid-gem-total">${k.gems}/${max} Gems</div></div></div></section>`).join("")}</div>`;
 }
 function photo(p) {
   return p.imageUrl
     ? `<img src="${attr(p.imageUrl)}" alt="">`
     : '<div class="photo-placeholder">🎁</div>';
 }
+
+function ticketIcon(className = "ticket-icon") {
+  return `<img class="${className}" src="assets/backgrounds/Choice-Quest-Ticket.PNG" alt="Ticket">`;
+}
+
 /* =========================================================
    SCREEN EVENTS AND ACTIONS
    ========================================================= */
@@ -198,7 +203,7 @@ async function act(b) {
 
 function showMobileCelebration(childName) {
   const el = document.getElementById("mobileCelebrate");
-  el.innerHTML = `<div class="mobile-celebrate-card"><div class="celebrate-kicker">${esc(childName)}</div><div class="celebrate-heading">Daily Quest<br>Complete!</div><div class="celebrate-ticket">🎟️ +1 Ticket</div></div>`;
+  el.innerHTML = `<div class="mobile-celebrate-card"><div class="celebrate-kicker">${esc(childName)}</div><div class="celebrate-heading">Daily Quest<br>Complete!</div><div class="celebrate-ticket">${ticketIcon("ticket-icon-large")} +1 Ticket</div></div>`;
   el.classList.remove("show");
   void el.offsetWidth;
   el.classList.add("show");
