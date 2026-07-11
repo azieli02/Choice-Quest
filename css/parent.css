@@ -228,6 +228,11 @@ h1 {
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
 }
 .bottom-nav button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
   border: 0;
   background: none;
   color: #81735e;
@@ -307,7 +312,12 @@ h1 {
   text-align: center;
 }
 
-.purchase-btn {
+.prize-actions .price,
+.purchase-btn,
+.unavailable-pill {
+  display: grid;
+  place-items: center;
+  min-height: 36px;
   border: 1px solid #d7b85d;
   border-radius: 999px;
   padding: 6px 10px;
@@ -315,6 +325,12 @@ h1 {
   color: #176bb4;
   font-size: 13px;
   font-weight: 900;
+}
+
+.unavailable-pill {
+  border-color: var(--line);
+  background: #e8ddc6;
+  color: var(--muted);
 }
 .fab {
   position: fixed;
