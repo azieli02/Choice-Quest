@@ -5,26 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#173d2c">
   <title>Choice Quest Parent</title>
-<link
-  rel="icon"
-  type="image/png"
-  href="assets/gems/Choice-Quest-Gem-Yellow.PNG"
->
-<link
-  rel="apple-touch-icon"
-  href="assets/gems/Choice-Quest-Gem-Yellow.PNG"
->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/parent.css?v=6">
+  <link rel="stylesheet" href="css/parent.css?v=7">
 </head>
 <body>
   <header class="topbar"><div><p class="eyebrow">Parent controls</p><h1>Choice Quest</h1></div><button class="icon-btn" id="refreshBtn" aria-label="Refresh">↻</button></header>
   <main id="app" class="app"><div class="loading">Loading the quest…</div></main>
   <nav class="bottom-nav" aria-label="Main navigation">
-    <button data-screen="home" class="active"><span>⌂</span>Home</button>
-    <button data-screen="store"><span>🎟️</span>Store</button>
+    <button data-screen="home" class="active"><img class="nav-image" src="assets/backgrounds/Choice-Quest-House-Icon.PNG" alt="">Home</button>
+    <button data-screen="store"><img class="nav-image" src="assets/backgrounds/Choice-Quest-Ticket.PNG" alt="">Store</button>
     <button data-screen="kid"><img class="nav-chest" src="assets/treasure/Choice-Quest-Treasure-Chest.PNG" alt="">Kid View</button>
   </nav>
   <dialog id="prizeDialog">
@@ -54,6 +45,6 @@
   <script src="js/config.js"></script>
   <script src="js/constants.js"></script>
   <script src="js/treasure.js"></script>
-  <script src="js/parent.js?v=10"></script>
+  <script src="js/parent.js?v=11"></script>
 </body>
 </html>
