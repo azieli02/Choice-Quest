@@ -2,7 +2,13 @@
    STATE AND API
    ========================================================= */
 
-const model = { data: null, screen: "home", selectedKid: null, editing: null };
+const model = {
+  data: null,
+  screen: "home",
+  selectedKid: null,
+  editing: null,
+  animateKid: null,
+};
 const app = document.getElementById("app");
 function api(action, params = {}) {
   return new Promise((resolve, reject) => {
@@ -102,7 +108,7 @@ function kidView() {
   if (!kids.length) return '<div class="empty">No children found.</div>';
   const max = Number(model.data.settings?.gemsPerTicket || 10);
   const date = model.data.today || new Date().toISOString().slice(0, 10);
-  return `<div class="section-head kid-view-title"><h2>Kid View</h2></div><div class="mobile-kids">${kids.map((k) => `<section class="summary-card mobile-kid" data-child="${attr(k.name)}"><div class="kid-name">${esc(k.name)}</div><div class="kid-content"><div class="kid-treasure">${buildTreasureArtworkHtml(k.name, date, k.gems, false)}<div class="ticket-pill">🎟️ ${k.tickets} Tickets</div></div><div class="kid-controls"><button class="good" data-act="addGood" data-kid="${attr(k.name)}">+ Good Choice</button><button class="bonus" data-act="addBonus" data-kid="${attr(k.name)}">+ Bonus Gem</button><button class="oops" data-act="addOops" data-kid="${attr(k.name)}">− Oops</button><button class="undo" data-act="undoLast" data-kid="${attr(k.name)}">Undo</button><div class="kid-gem-total">${k.gems}/${max} Gems</div></div></div></section>`).join("")}</div>`;
+  return `<div class="section-head kid-view-title"><h2>Kid View</h2></div><div class="mobile-kids">${kids.map((k) => `<section class="summary-card mobile-kid" data-child="${attr(k.name)}"><div class="kid-name">${esc(k.name)}</div><div class="kid-content"><div class="kid-treasure">${buildTreasureArtworkHtml(k.name, date, k.gems, model.animateKid === k.name)}<div class="ticket-pill">🎟️ ${k.tickets} Tickets</div></div><div class="kid-controls"><button class="good" data-act="addGood" data-kid="${attr(k.name)}">+ Good Choice</button><button class="bonus" data-act="addBonus" data-kid="${attr(k.name)}">+ Bonus Gem</button><button class="oops" data-act="addOops" data-kid="${attr(k.name)}">− Oops</button><button class="undo" data-act="undoLast" data-kid="${attr(k.name)}">Undo</button><div class="kid-gem-total">${k.gems}/${max} Gems</div></div></div></section>`).join("")}</div>`;
 }
 function photo(p) {
   return p.imageUrl
@@ -142,14 +148,23 @@ function bind() {
 }
 async function act(b) {
   const childName = b.dataset.kid;
+  const actionName = b.dataset.act;
   const before = (model.data.kids || []).find((k) => k.name === childName);
+  const oldGems = Number(before?.gems || 0);
   const oldTickets = Number(before?.tickets || 0);
   b.closest(".summary-card").classList.add("saving");
   try {
-    model.data = await api(b.dataset.act, { child: childName });
+    model.data = await api(actionName, { child: childName });
     const after = (model.data.kids || []).find((k) => k.name === childName);
+    const earnedTicket = Number(after?.tickets || 0) > oldTickets;
+    const addedGem =
+      (actionName === "addGood" || actionName === "addBonus") &&
+      Number(after?.gems || 0) > oldGems &&
+      !earnedTicket;
+    model.animateKid = addedGem ? childName : null;
     render();
-    if (Number(after?.tickets || 0) > oldTickets)
+    model.animateKid = null;
+    if (earnedTicket)
       showMobileCelebration(childName);
     else toast("Saved");
   } catch (e) {
