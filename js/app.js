@@ -275,7 +275,7 @@ function buildLoadingCardHtml(name) {
           <h2>${escapeHtml(name)}</h2>
           <div class="saving-badge">Loading...</div>
         </div>
-        <div class="ticket-pill">🎟️ -- Tickets</div>
+        <div class="ticket-pill">${ticketIconHtml()} -- Tickets</div>
       </div>
       <div class="treasure-stage">${buildTreasureHtml(name, 0, false, true)}</div>
       <div class="meter">
@@ -328,7 +328,7 @@ function buildKidCardInnerHtml(kid, animateNewGem) {
         <h2>${escapeHtml(kid.name)}</h2>
         
       </div>
-      <div class="ticket-pill"><span>🎟️</span> ${kid.tickets} Tickets</div>
+      <div class="ticket-pill">${ticketIconHtml()} ${kid.tickets} Tickets</div>
     </div>
 
     <div class="treasure-stage">${buildTreasureHtml(kid.name, gemCount, animateNewGem && !isCelebrating)}</div>
@@ -537,7 +537,7 @@ function showCelebration(text) {
     <div class="celebrate-card">
       <div class="celebrate-kicker">${text}</div>
       <div class="celebrate-title">Daily Quest Complete!</div>
-      <div class="gold-ticket">🎟️ +1 Ticket</div>
+      <div class="gold-ticket">${ticketIconHtml('ticket-icon-large')} +1 Ticket</div>
     </div>
   `;
 
@@ -601,6 +601,10 @@ function showError(error) {
 
 function toId(value) {
   return String(value).replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+}
+
+function ticketIconHtml(className = 'ticket-icon') {
+  return `<img class="${className}" src="assets/backgrounds/Choice-Quest-Ticket.PNG" alt="Ticket">`;
 }
 
 function escapeHtml(value) {
